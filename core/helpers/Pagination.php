@@ -39,7 +39,7 @@
                                              LIMIT ".$this->limit." OFFSET ".$this->offset.";", 
                                              array(":search" => "%".$this->search."%"));
 
-            return array("Total" => intval($total[0]["count"]), "Results" => $results);
+            return array("Total" => isset($total[0])? intval($total[0]["count"]):0, "Results" => $results);
         }
     }
 ?>

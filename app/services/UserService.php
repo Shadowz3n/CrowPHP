@@ -6,8 +6,7 @@
         public static function getUsers(){
 
             $user = new User();
-            $selectUsers = $user->select();
-            die(Response::json(200, $selectUsers));
+            die(Response::json(200, $user->select()));
         }
 
         // Add User
