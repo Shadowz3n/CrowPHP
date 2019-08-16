@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /php-framework
+
+	RewriteCond %{REQUEST_URI} /+[^\.]+$
+ 	RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+
+	RewriteCond %{HTTP:Authorization} .
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^api(.*)$ ./index.php [L]
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule !^api(.*)$ public/$1 [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(ico|pdf|flv|swf|js|css|gif|png|jpg|jpeg|txt)$">
+		Header set Cache-Control "max-age=2592000, public"
+	</FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(js|css|xml|gz)$">
+		Header append Vary Accept-Encoding
+	</FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+	Header set Connection keep-alive
+</IfModule>
